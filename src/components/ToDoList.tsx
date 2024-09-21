@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ConfirmDeleteDialog from '../dialogs/ConfirmDeleteDialog';
 import FilterAndAddTask from '../UI/FilterAndAddTask';
 import TaskList from '../UI/TaskList';
+import ConfirmDeleteAllDialog from '../dialogs/ConfirmDeleteAllDialog';
 
 const ToDoList: React.FC<{ handleClickOpen: () => void }> = ({
 	handleClickOpen,
@@ -30,6 +31,8 @@ const ToDoList: React.FC<{ handleClickOpen: () => void }> = ({
 	const [filter, setFilter] = useState<'all' | 'completed' | 'incomplete'>(
 		'all'
 	);
+	const [openConfirmDeletAllDialog, setOpenConfirmDeletAllDialog] =
+		useState(false);
 
 	useEffect(() => {
 		const tasksFromLocalStorage = localStorage.getItem('todos');
@@ -82,10 +85,16 @@ const ToDoList: React.FC<{ handleClickOpen: () => void }> = ({
 			handleConfirmDialogClose();
 		}
 	};
+
 	const handleClearAllTasks = () => {
+		setOpenConfirmDeletAllDialog(true);
+	};
+
+	const handleConfirmClearAllTasks = () => {
 		dispatch(clearAllTasks());
 		localStorage.removeItem('todos');
 		toast.success('All tasks cleared!', { autoClose: 3000 });
+		setOpenConfirmDeletAllDialog(false);
 	};
 
 	const handleToggleComplete = (task: Todo) => {
@@ -137,6 +146,12 @@ const ToDoList: React.FC<{ handleClickOpen: () => void }> = ({
 				open={openConfirmDialog}
 				onClose={handleConfirmDialogClose}
 				onConfirm={handleDelete}
+			/>
+
+			<ConfirmDeleteAllDialog
+				open={openConfirmDeletAllDialog}
+				onClose={() => setOpenConfirmDeletAllDialog(false)}
+				onConfirm={handleConfirmClearAllTasks}
 			/>
 		</div>
 	);

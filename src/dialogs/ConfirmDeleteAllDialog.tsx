@@ -5,26 +5,25 @@ import {
 	DialogContent,
 	DialogTitle,
 } from '@mui/material';
-import { ConfirmDeleteDialogProps } from '../types/types';
 
-const ConfirmDeleteDialog: React.FC<ConfirmDeleteDialogProps> = ({
+interface ConfirmDialogProps {
+	open: boolean;
+	onClose: () => void;
+	onConfirm: () => void;
+}
+
+const ConfirmDeleteAllDialog: React.FC<ConfirmDialogProps> = ({
 	open,
 	onClose,
 	onConfirm,
 }) => {
 	return (
-		<Dialog
-			open={open}
-			onClose={onClose}
-			aria-labelledby="alert-dialog-title"
-			aria-describedby="alert-dialog-description"
-		>
+		<Dialog open={open} onClose={onClose}>
 			<DialogTitle className="bg-red-500 text-white">
 				Confirm Delete
 			</DialogTitle>
-
 			<DialogContent className="mt-4">
-				<p>Are you sure you want to Delete this task?</p>
+				Are you sure you want to Delete all tasks?
 			</DialogContent>
 			<DialogActions>
 				<button
@@ -38,7 +37,6 @@ const ConfirmDeleteDialog: React.FC<ConfirmDeleteDialogProps> = ({
 					className="bg-emerald-600 text-white py-2 px-5 rounded"
 					onClick={onClose}
 					color="primary"
-					autoFocus
 				>
 					No
 				</button>
@@ -47,4 +45,4 @@ const ConfirmDeleteDialog: React.FC<ConfirmDeleteDialogProps> = ({
 	);
 };
 
-export default ConfirmDeleteDialog;
+export default ConfirmDeleteAllDialog;
