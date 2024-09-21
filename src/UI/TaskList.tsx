@@ -12,8 +12,8 @@ const TaskList: React.FC<TaskListProps> = ({
 }) => {
 	if (tasks.length === 0) {
 		return (
-			<p className="text-center capitalize font-medium mt-10 text-3xl">
-				No tasks yet
+			<p className="text-center capitalize font-medium mt-10 text-3xl text-white">
+				No tasks yet !...
 			</p>
 		);
 	}
@@ -24,7 +24,9 @@ const TaskList: React.FC<TaskListProps> = ({
 				<div key={task.id}>
 					<div
 						className={`mt-5 sm:w-1/2 m-auto p-3 ${
-							task.isCompleted ? 'bg-green-100' : 'bg-teal-200'
+							task.isCompleted
+								? 'bg-green-100 opacity-50'
+								: 'bg-teal-200'
 						}`}
 					>
 						<div className="flex justify-between items-center">
